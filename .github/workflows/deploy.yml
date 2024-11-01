@@ -1,4 +1,5 @@
-name: Deploy leadSpy-airtable-cache to AWS
+name: Deploy leadSpy-airtable-cache to leadSpy-airtable-cache
+
 
 on:
   push:
@@ -22,10 +23,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt -t ./package
-          cp -r src/* ./package/
 
       - name: Package application
         run: |
+          # Copy the src folder to the package directory
+          mkdir -p package/src
+          cp -r src/* package/src/
           cd package
           zip -r ../lambda-deployment.zip .
 
